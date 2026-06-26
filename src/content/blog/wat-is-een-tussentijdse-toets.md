@@ -1,5 +1,5 @@
 ---
-title: "<strong>Wat is een tussentijdse toets?</strong>"
+title: "Wat is een tussentijdse toets?"
 slug: "wat-is-een-tussentijdse-toets"
 date: 2022-12-21
 ---

@@ -5,7 +5,8 @@ import BlogPostCard from "@components/BlogPostCard.astro";
 import { getHomepagePosts } from "@lib/posts";
 import { SITE } from "@lib/site";
 
-const recent = await getHomepagePosts(9);
+const allHomePosts = await getHomepagePosts();
+const recent = allHomePosts.slice(0, 7);
 ---
 <BaseLayout title={`${SITE.name} — ${SITE.tagline}`} description={SITE.description}>
 
@@ -93,17 +94,22 @@ const recent = await getHomepagePosts(9);
 
   <!-- Recente artikelen -->
   <Container class="py-(--spacing-section)">
-    <div class="flex items-end justify-between mb-8">
+    <div class="flex items-end justify-between mb-6">
       <div>
         <p class="text-xs font-bold uppercase tracking-widest text-orange-500 mb-1">Artikelen</p>
         <h2 class="text-3xl font-black text-gray-900">Recente tips &amp; uitleg</h2>
       </div>
-      <a href="/blog/" class="text-xs font-bold text-orange-600 hover:text-orange-800 uppercase tracking-wider">
+      <a href="/blog/" class="text-xs font-bold text-orange-600 hover:text-orange-800 uppercase tracking-wider hidden sm:block">
         Alle artikelen →
       </a>
     </div>
-    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {recent.map((p) => <BlogPostCard post={p} />)}
+    <!-- Featured (first post spans 2 cols) + 5 regular -->
+    <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      {recent[0] && <BlogPostCard post={recent[0]} featured={true} />}
+      {recent.slice(1).map((p) => <BlogPostCard post={p} />)}
+    </div>
+    <div class="mt-6 text-center sm:hidden">
+      <a href="/blog/" class="text-sm font-bold text-orange-600">Alle artikelen →</a>
     </div>
   </Container>
 

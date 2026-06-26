@@ -1,5 +1,5 @@
 ---
-title: "<strong>Een auto leasen: waar moet je op letten?</strong>"
+title: "Een auto leasen: waar moet je op letten?"
 slug: "een-auto-leasen-waar-moet-je-op-letten"
 date: 2023-03-10
 ---

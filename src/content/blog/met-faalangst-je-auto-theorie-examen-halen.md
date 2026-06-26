@@ -1,5 +1,5 @@
 ---
-title: "<strong>Met faalangst je auto (theorie) examen halen</strong>"
+title: "Met faalangst je auto (theorie) examen halen"
 slug: "met-faalangst-je-auto-theorie-examen-halen"
 date: 2022-11-30
 ---

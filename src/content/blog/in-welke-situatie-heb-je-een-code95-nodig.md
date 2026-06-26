@@ -1,5 +1,5 @@
 ---
-title: "<strong>In welke situatie heb je een code95 nodig?</strong>"
+title: "In welke situatie heb je een code95 nodig?"
 slug: "in-welke-situatie-heb-je-een-code95-nodig"
 date: 2022-12-21
 ---

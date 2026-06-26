@@ -1,5 +1,5 @@
 ---
-title: "<strong>Welke soorten rijbewijzen zijn er?</strong>"
+title: "Welke soorten rijbewijzen zijn er?"
 slug: "welke-soorten-rijbewijzen-zijn-er"
 date: 2022-12-29
 ---

@@ -1,5 +1,5 @@
 ---
-title: "<strong>Tips voor autotheorie</strong>"
+title: "Tips voor autotheorie"
 slug: "tips-voor-autotheorie"
 date: 2022-12-27
 ---

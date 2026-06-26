@@ -1,5 +1,5 @@
 ---
-title: "<strong>Verkeersregels die u moet weten als u in Nederland bent</strong>"
+title: "Verkeersregels die u moet weten als u in Nederland bent"
 slug: "verkeersregels-die-u-moet-weten-als-u-in-nederland-bent"
 date: 2023-03-27
 ---

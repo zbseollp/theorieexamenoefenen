@@ -1,5 +1,5 @@
 ---
-title: "<strong>Hoelang duurt het theorie-examen?</strong>"
+title: "Hoelang duurt het theorie-examen?"
 slug: "hoelang-duurt-het-theorie-examen"
 date: 2022-12-27
 ---
