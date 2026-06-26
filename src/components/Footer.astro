@@ -1,0 +1,59 @@
+---
+import Container from "@components/Container.astro";
+import CurrentYear from "@components/CurrentYear.astro";
+import { SITE } from "@lib/site";
+import { getRecentPosts, displayTitle } from "@lib/posts";
+const recent = (await getRecentPosts(4)).map((p) => ({ slug: p.id, title: displayTitle(p) }));
+---
+<footer class="mt-(--spacing-section) bg-stone-900 text-stone-300">
+  <Container class="grid gap-10 py-14 md:grid-cols-12">
+    <div class="md:col-span-4">
+      <div class="flex items-center gap-2.5 mb-4">
+        <div class="h-8 px-2.5 flex items-center justify-center rounded-lg bg-orange-600 shrink-0">
+          <span class="text-white font-black text-xs leading-none tracking-tight">TEO</span>
+        </div>
+        <span class="font-black text-sm text-white">TheorieExamenOefenen</span>
+      </div>
+      <p class="text-sm text-stone-400 max-w-xs leading-relaxed">
+        Gratis tips en uitleg voor je CBR theorie-examen. Oefen gericht, begrijp de regels en slaag in één keer.
+      </p>
+      <a href="/blog/" class="mt-5 inline-flex items-center gap-1.5 rounded-full bg-orange-600 px-4 py-2 text-sm font-bold text-white hover:bg-orange-700 transition-colors">
+        Begin met oefenen →
+      </a>
+    </div>
+
+    <div class="md:col-span-2">
+      <h3 class="text-xs font-bold uppercase tracking-wider text-orange-500 mb-3">Navigatie</h3>
+      <ul class="space-y-2 text-sm">
+        {SITE.nav.map((i) => (
+          <li><a class="text-stone-400 hover:text-white transition-colors" href={i.href}>{i.label}</a></li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="md:col-span-2">
+      <h3 class="text-xs font-bold uppercase tracking-wider text-orange-500 mb-3">Info</h3>
+      <ul class="space-y-2 text-sm">
+        <li><a class="text-stone-400 hover:text-white transition-colors" href="/over-ons/">Over ons</a></li>
+        <li><a class="text-stone-400 hover:text-white transition-colors" href="/contact/">Contact</a></li>
+        <li><a class="text-stone-400 hover:text-white transition-colors" href="/sitemap/">Sitemap</a></li>
+      </ul>
+    </div>
+
+    <div class="md:col-span-4">
+      <h3 class="text-xs font-bold uppercase tracking-wider text-orange-500 mb-3">Recente artikelen</h3>
+      <ul class="space-y-2 text-sm">
+        {recent.map((p) => (
+          <li><a class="text-stone-400 hover:text-white transition-colors leading-snug block" href={`/${p.slug}/`}>{p.title}</a></li>
+        ))}
+      </ul>
+    </div>
+  </Container>
+
+  <div class="border-t border-stone-800 py-5">
+    <Container class="flex flex-col items-center justify-between gap-2 text-xs text-stone-500 sm:flex-row">
+      <p>© <CurrentYear /> {SITE.name}. Alle rechten voorbehouden.</p>
+      <p>Gratis theorie-examen voorbereiding.</p>
+    </Container>
+  </div>
+</footer>

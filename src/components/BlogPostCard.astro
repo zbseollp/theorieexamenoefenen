@@ -1,0 +1,28 @@
+---
+import type { Post } from "@lib/posts";
+import { displayTitle, displayDescription, formatDate } from "@lib/posts";
+interface Props { post: Post; eager?: boolean }
+const { post } = Astro.props;
+const { date } = post.data;
+const title = displayTitle(post);
+const desc = displayDescription(post);
+const href = `/${post.id}/`;
+const month = date.toLocaleDateString("nl-NL", { month: "short" });
+const year = date.getFullYear();
+---
+<article class="group relative flex flex-col bg-white rounded-2xl border border-gray-100 hover:border-orange-200 hover:shadow-md transition-all overflow-hidden">
+  <div class="p-5 flex-1 flex flex-col">
+    <div class="flex items-center gap-2 mb-3">
+      <span class="text-xs font-semibold bg-orange-50 text-orange-700 px-2.5 py-0.5 rounded-full border border-orange-100">
+        {month} {year}
+      </span>
+    </div>
+    <h2 class="text-sm font-bold text-gray-900 leading-snug group-hover:text-orange-700 transition-colors flex-1">
+      <a href={href} class="after:absolute after:inset-0">{title}</a>
+    </h2>
+    {desc && <p class="mt-2 text-xs text-gray-500 leading-relaxed line-clamp-3">{desc}</p>}
+  </div>
+  <div class="px-5 pb-4 flex items-center justify-between">
+    <span class="text-xs font-bold text-orange-600 group-hover:text-orange-700 transition-colors">Lees artikel →</span>
+  </div>
+</article>

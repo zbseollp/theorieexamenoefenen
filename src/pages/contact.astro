@@ -1,0 +1,60 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Container from "@components/Container.astro";
+const ACCESS_KEY = import.meta.env.WEB3FORMS_ACCESS_KEY || "8ea4e1a2-67ac-4af4-a4f3-f65d5ae539e1";
+---
+<BaseLayout
+  title="Contact | TheorieExamenOefenen"
+  description="Vragen, tips of feedback over TheorieExamenOefenen? Neem contact met ons op via het formulier."
+>
+  <div class="bg-orange-600 text-white">
+    <Container class="py-10">
+      <h1 class="text-4xl font-black tracking-tight">Contact</h1>
+      <p class="mt-2 text-orange-100">Een vraag, tip of opmerking? We lezen en beantwoorden elk bericht.</p>
+    </Container>
+  </div>
+
+  <Container class="max-w-2xl py-(--spacing-section)">
+    <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" class="space-y-5 rounded-2xl border border-orange-100 bg-white p-6 sm:p-8 shadow-sm">
+      <input type="hidden" name="access_key" value={ACCESS_KEY} />
+      <input type="hidden" name="subject" value="Nieuw bericht via TheorieExamenOefenen" />
+      <input type="hidden" name="from_name" value="TheorieExamenOefenen" />
+      <input type="hidden" name="redirect" data-redirect value="https://theorieexamenoefenen.net/contact/thanks/" />
+      <input type="checkbox" name="botcheck" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+      <div>
+        <label for="name" class="block text-sm font-medium text-gray-800">Naam</label>
+        <input id="name" name="name" required class="mt-1 w-full rounded-xl border border-gray-300 px-4 py-2.5 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-200" />
+      </div>
+      <div>
+        <label for="email" class="block text-sm font-medium text-gray-800">E-mailadres</label>
+        <input id="email" type="email" name="email" required class="mt-1 w-full rounded-xl border border-gray-300 px-4 py-2.5 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-200" />
+      </div>
+      <div>
+        <label for="message" class="block text-sm font-medium text-gray-800">Bericht</label>
+        <textarea id="message" name="message" rows="5" required minlength="10" class="mt-1 w-full rounded-xl border border-gray-300 px-4 py-2.5 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-200"></textarea>
+      </div>
+      <div class="h-captcha" data-captcha="true"></div>
+
+      <button type="submit" class="inline-flex items-center justify-center rounded-full bg-orange-600 px-7 py-3 font-bold text-white transition hover:bg-orange-700">Versturen</button>
+      <p class="text-xs text-gray-500">We gebruiken je gegevens alleen om je bericht te beantwoorden. Beschermd met hCaptcha.</p>
+    </form>
+  </Container>
+
+  <script>
+    const form = document.getElementById("contact-form") as HTMLFormElement | null;
+    if (form) {
+      const redirect = form.querySelector("[data-redirect]") as HTMLInputElement | null;
+      if (redirect) redirect.value = window.location.origin + "/contact/thanks/";
+      let loaded = false;
+      const load = () => {
+        if (loaded) return; loaded = true;
+        const s = document.createElement("script");
+        s.src = "https://web3forms.com/client/script.js"; s.async = true; s.defer = true;
+        document.head.appendChild(s);
+      };
+      form.addEventListener("focusin", load, { once: true });
+      form.addEventListener("submit", load);
+    }
+  </script>
+</BaseLayout>

@@ -1,0 +1,82 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Container from "@components/Container.astro";
+---
+<BaseLayout
+  title="Het CBR theorie-examen — alles wat je moet weten | TheorieExamenOefenen"
+  description="Hoe werkt het CBR auto theorie-examen? 65 vragen, slagingsnorm 77%, gevaarherkenning, kosten en aanmelden. Alles uitgelegd."
+>
+  <div class="bg-orange-600 text-white">
+    <Container class="py-14">
+      <h1 class="text-4xl font-black tracking-tight">Het theorie-examen</h1>
+      <p class="mt-3 text-orange-100 max-w-xl">Alles wat je moet weten over het CBR auto theorie-examen — vragen, slagingsnorm, kosten en voorbereiding.</p>
+    </Container>
+  </div>
+
+  <Container class="max-w-3xl py-(--spacing-section)">
+    <!-- Quick stats -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-12">
+      {[
+        { label: "Vragen", value: "65" },
+        { label: "Slagingsnorm", value: "77%" },
+        { label: "Max. fouten", value: "15" },
+        { label: "Examenduur", value: "45 min" },
+      ].map(({ label, value }) => (
+        <div class="bg-orange-50 rounded-2xl px-4 py-4 border border-orange-100 text-center">
+          <div class="text-3xl font-black text-orange-600">{value}</div>
+          <div class="text-xs text-gray-500 mt-1">{label}</div>
+        </div>
+      ))}
+    </div>
+
+    <div class="article-prose">
+      <h2>Wat is het theorie-examen?</h2>
+      <p>
+        Het CBR auto theorie-examen is een verplicht examen dat je moet afleggen voordat je rijles kunt nemen en uiteindelijk het praktijkexamen kunt doen. Het toetst je kennis van verkeersregels, inzicht in verkeerssituaties en je vermogen om gevaarlijke situaties te herkennen.
+      </p>
+
+      <h2>Hoe ziet het examen eruit?</h2>
+      <p>
+        Het examen bestaat uit <strong>65 meerkeuzevragen</strong> en duurt 45 minuten. De vragen zijn verdeeld over drie onderdelen:
+      </p>
+      <ul>
+        <li><strong>Kennis</strong> — verkeersregels, verkeersborden en rijbaanmarkering</li>
+        <li><strong>Inzicht</strong> — je gedrag in verschillende verkeerssituaties</li>
+        <li><strong>Gevaarherkenning</strong> — videobeelden waarbij je gevaarlijke situaties aanwijst</li>
+      </ul>
+      <p>
+        Elk onderdeel heeft een eigen minimum. Je moet minimaal <strong>77% goed</strong> hebben om te slagen — dat betekent maximaal 15 fouten.
+      </p>
+
+      <h2>Gevaarherkenning</h2>
+      <p>
+        Gevaarherkenning is het onderdeel waar de meeste kandidaten moeite mee hebben. Je krijgt korte videofilmpjes van verkeerssituaties te zien en moet op het juiste moment op de muis klikken als je een gevaar ziet. Te vroeg of te laat klikken levert minder of geen punten op.
+      </p>
+
+      <h2>Kosten</h2>
+      <p>
+        Een theorie-examen bij het CBR kost <strong>€ 37,75</strong> (2024). Als je zakt mag je het opnieuw proberen — er is geen wachtperiode, maar je betaalt opnieuw.
+      </p>
+
+      <h2>Aanmelden</h2>
+      <p>
+        Je kunt het theorie-examen aanmelden op de website van het CBR. Je hebt een DigiD nodig. Na aanmelding krijg je een bevestiging met de datum, tijd en locatie van je examen.
+      </p>
+
+      <h2>Hoe lang is mijn theoriebewijs geldig?</h2>
+      <p>
+        Na het slagen voor het theorie-examen ontvang je een <strong>theoriebewijs dat 18 maanden geldig</strong> is. Binnen die periode moet je ook het praktijkexamen halen. Als dat niet lukt, moet je het theorie-examen opnieuw afleggen.
+      </p>
+    </div>
+
+    <div class="mt-10 rounded-2xl bg-orange-600 text-white p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <p class="font-black text-lg">Klaar om te oefenen?</p>
+        <p class="text-orange-100 text-sm">Lees onze artikelen en bereid je optimaal voor.</p>
+      </div>
+      <a href="/blog/" class="shrink-0 inline-flex items-center rounded-full bg-white text-orange-700 font-bold px-6 py-2.5 text-sm hover:bg-orange-50 transition-colors">
+        Bekijk alle artikelen →
+      </a>
+    </div>
+  </Container>
+</BaseLayout>

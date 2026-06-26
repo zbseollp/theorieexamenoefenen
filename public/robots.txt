@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://autotheorieoefenen.com/sitemap-index.xml

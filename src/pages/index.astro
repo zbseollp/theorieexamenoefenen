@@ -1,0 +1,172 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Container from "@components/Container.astro";
+import BlogPostCard from "@components/BlogPostCard.astro";
+import { getHomepagePosts } from "@lib/posts";
+import { SITE } from "@lib/site";
+
+const recent = await getHomepagePosts(9);
+---
+<BaseLayout title={`${SITE.name} — ${SITE.tagline}`} description={SITE.description}>
+
+  <!-- Hero: vol oranje, breed, met stat-bubbles -->
+  <section class="bg-orange-600 text-white overflow-hidden">
+    <Container class="py-16 md:py-24 relative">
+      <div class="max-w-2xl">
+        <div class="inline-flex items-center gap-2 bg-orange-500/60 rounded-full px-4 py-1.5 text-xs font-semibold text-orange-100 mb-6 border border-orange-400/40">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          Gratis · Geen account nodig
+        </div>
+        <h1 class="text-5xl font-black tracking-tight leading-none sm:text-6xl lg:text-7xl">
+          Slaag voor je<br/>
+          <span class="text-orange-200">theorie&#8209;</span><br/>
+          <span class="text-orange-200">examen.</span>
+        </h1>
+        <p class="mt-6 text-orange-100 text-lg leading-relaxed max-w-lg">
+          Oefenvragen, tips en uitleg voor het CBR auto theorie-examen. Gericht oefenen zodat jij in één keer slaagt.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-4">
+          <a href="/blog/" class="inline-flex items-center gap-2 bg-white text-orange-700 font-black px-6 py-3 rounded-full text-sm hover:bg-orange-50 transition-colors shadow-sm">
+            Begin met oefenen →
+          </a>
+          <a href="/theorie-examen/" class="text-sm text-orange-200 hover:text-white transition-colors self-center underline underline-offset-4">
+            Wat is het examen?
+          </a>
+        </div>
+      </div>
+
+      <!-- Examen stat-bubbles -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-12">
+        {[
+          { label: "Vragen", value: "65" },
+          { label: "Slagingsnorm", value: "77%" },
+          { label: "Max. fouten", value: "15" },
+          { label: "Examenduur", value: "45 min" },
+        ].map(({ label, value }) => (
+          <div class="bg-white/10 rounded-2xl px-4 py-3 border border-white/10">
+            <div class="text-2xl font-black text-white">{value}</div>
+            <div class="text-xs text-orange-200 mt-0.5">{label}</div>
+          </div>
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  <!-- Hoe werkt het -->
+  <section class="bg-orange-50 border-b border-orange-100">
+    <Container class="py-(--spacing-section)">
+      <div class="text-center mb-10">
+        <p class="text-xs font-bold uppercase tracking-widest text-orange-500 mb-2">Jouw stappenplan</p>
+        <h2 class="text-3xl font-black text-gray-900">Zo slaag je in drie stappen</h2>
+      </div>
+      <div class="grid gap-6 sm:grid-cols-3">
+        {[
+          {
+            n: "1",
+            title: "Lees de theorie",
+            body: "Begrijp de verkeersregels grondig. Onze artikelen leggen alles helder uit — van voorrangsregels tot rijbaanmarkering.",
+            icon: "📖",
+          },
+          {
+            n: "2",
+            title: "Oefen gevaarherkenning",
+            body: "Het moeilijkste onderdeel. Leer herkennen wat examinatoren zoeken en train je reactiesnelheid.",
+            icon: "⚠️",
+          },
+          {
+            n: "3",
+            title: "Doe het examen",
+            body: "Goed voorbereid naar het CBR. Ken de regels, herken gevaar en gebruik onze examenstrategie.",
+            icon: "✅",
+          },
+        ].map(({ n, title, body, icon }) => (
+          <div class="bg-white rounded-2xl p-6 border border-orange-100 shadow-sm relative overflow-hidden">
+            <div class="text-4xl mb-4">{icon}</div>
+            <div class="absolute top-4 right-4 text-5xl font-black text-orange-50 leading-none select-none">{n}</div>
+            <h3 class="font-black text-gray-900 mb-2">{title}</h3>
+            <p class="text-sm text-gray-500 leading-relaxed">{body}</p>
+          </div>
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  <!-- Recente artikelen -->
+  <Container class="py-(--spacing-section)">
+    <div class="flex items-end justify-between mb-8">
+      <div>
+        <p class="text-xs font-bold uppercase tracking-widest text-orange-500 mb-1">Artikelen</p>
+        <h2 class="text-3xl font-black text-gray-900">Recente tips &amp; uitleg</h2>
+      </div>
+      <a href="/blog/" class="text-xs font-bold text-orange-600 hover:text-orange-800 uppercase tracking-wider">
+        Alle artikelen →
+      </a>
+    </div>
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {recent.map((p) => <BlogPostCard post={p} />)}
+    </div>
+  </Container>
+
+  <!-- Examen info blok -->
+  <section class="bg-stone-900 text-white">
+    <Container class="py-(--spacing-section)">
+      <div class="text-center mb-10">
+        <p class="text-xs font-bold uppercase tracking-widest text-orange-500 mb-2">Het CBR examen</p>
+        <h2 class="text-3xl font-black text-white">Alles wat je moet weten</h2>
+      </div>
+      <div class="grid gap-4 sm:grid-cols-3">
+        {[
+          { title: "Theorie-examen", body: "65 meerkeuzevragen over kennis, inzicht en gevaarherkenning. Minimaal 77% goed om te slagen.", href: "/theorie-examen/" },
+          { title: "Oefentips", body: "Hoe oefen je slim? Welke fouten maken de meeste kandidaten? Onze tips helpen je gerichter studeren.", href: "/oefentips/" },
+          { title: "Artikelen & uitleg", body: "Meer dan 100 artikelen over verkeersregels, examentips, rijbewijskosten en meer.", href: "/blog/" },
+        ].map(({ title, body, href }) => (
+          <a href={href} class="group bg-stone-800 rounded-2xl p-6 border border-stone-700 hover:border-orange-500 transition-colors block">
+            <h3 class="font-black text-white mb-2 group-hover:text-orange-400 transition-colors">{title}</h3>
+            <p class="text-sm text-stone-400 leading-relaxed mb-4">{body}</p>
+            <span class="text-xs font-bold text-orange-500 group-hover:text-orange-400 uppercase tracking-wider">Lees meer →</span>
+          </a>
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  <!-- FAQ -->
+  <Container class="max-w-2xl py-(--spacing-section)">
+    <div class="text-center mb-8">
+      <p class="text-xs font-bold uppercase tracking-widest text-orange-500 mb-2">Veelgestelde vragen</p>
+      <h2 class="text-3xl font-black text-gray-900">Heb jij deze vraag ook?</h2>
+    </div>
+    <div class="space-y-3">
+      {[
+        { q: "Hoeveel vragen heeft het CBR theorie-examen?", a: "Het theorie-examen voor rijbewijs B bestaat uit 65 meerkeuzevragen, verdeeld over kennis, inzicht en gevaarherkenning." },
+        { q: "Wat is de slagingsnorm?", a: "Minimaal 77% goed — dat betekent maximaal 15 fouten op 65 vragen. Elk onderdeel heeft ook een eigen minimum." },
+        { q: "Hoe lang duurt het examen?", a: "45 minuten. Gevaarherkenning heeft een aparte tijdsbewaking. Extra tijd is mogelijk met een dyslexieverklaring." },
+        { q: "Hoe bereid ik me het beste voor?", a: "Lees eerst alle theorie, oefen daarna met examenvragen en besteed extra aandacht aan gevaarherkenning. Dat onderdeel levert de meeste fouten op." },
+        { q: "Hoe lang is mijn theorie-certificaat geldig?", a: "18 maanden. Binnen die periode moet je ook het praktijkexamen halen, anders vervalt het." },
+      ].map(({ q, a }) => (
+        <details class="group bg-white rounded-2xl border border-gray-100 hover:border-orange-200 transition-colors overflow-hidden">
+          <summary class="flex cursor-pointer items-center justify-between px-5 py-4 text-sm font-semibold text-gray-900 list-none gap-4">
+            {q}
+            <span class="text-xl font-light text-orange-400 group-open:rotate-45 transition-transform shrink-0 leading-none">+</span>
+          </summary>
+          <p class="px-5 pb-5 text-sm text-gray-500 leading-relaxed">{a}</p>
+        </details>
+      ))}
+    </div>
+  </Container>
+
+  <!-- Bottom CTA -->
+  <section class="bg-orange-600 text-white">
+    <Container class="py-14 flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div>
+        <p class="text-xs font-bold uppercase tracking-widest text-orange-200 mb-1">Gratis · geen account</p>
+        <h2 class="text-2xl font-black">Klaar om te oefenen?</h2>
+        <p class="text-orange-100 text-sm mt-1">Lees de theorie, oefen de vragen, slaag in één keer.</p>
+      </div>
+      <a href="/blog/" class="shrink-0 inline-flex items-center gap-2 bg-white text-orange-700 font-black px-7 py-3 rounded-full hover:bg-orange-50 transition-colors text-sm shadow-sm">
+        Begin nu gratis →
+      </a>
+    </Container>
+  </section>
+
+</BaseLayout>

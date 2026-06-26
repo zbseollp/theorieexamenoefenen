@@ -1,0 +1,39 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Container from "@components/Container.astro";
+import { getAllPosts, displayTitle } from "@lib/posts";
+
+const posts = await getAllPosts();
+
+const main = [
+  { href: "/", title: "Home" },
+  { href: "/blog/", title: "Alle artikelen" },
+  { href: "/theorie-examen/", title: "Theorie-examen" },
+  { href: "/oefentips/", title: "Oefentips" },
+  { href: "/over-ons/", title: "Over ons" },
+  { href: "/contact/", title: "Contact" },
+];
+---
+<BaseLayout title="Sitemap | TheorieExamenOefenen" description="Overzicht van alle pagina's en artikelen op TheorieExamenOefenen.">
+  <div class="bg-orange-600 text-white">
+    <Container class="py-10">
+      <h1 class="text-4xl font-black tracking-tight">Sitemap</h1>
+    </Container>
+  </div>
+
+  <Container class="py-(--spacing-section)">
+    <section>
+      <h2 class="text-xl font-black text-gray-900 mb-4">Hoofdpagina's</h2>
+      <ul class="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+        {main.map((p) => <li><a class="text-orange-600 hover:underline" href={p.href}>{p.title}</a></li>)}
+      </ul>
+    </section>
+
+    <section class="mt-10">
+      <h2 class="text-xl font-black text-gray-900 mb-4">Artikelen ({posts.length})</h2>
+      <ul class="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+        {posts.map((p) => <li><a class="text-orange-600 hover:underline" href={`/${p.id}/`}>{displayTitle(p)}</a></li>)}
+      </ul>
+    </section>
+  </Container>
+</BaseLayout>
