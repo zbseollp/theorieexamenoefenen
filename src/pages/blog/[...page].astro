@@ -1,0 +1,73 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Container from "@components/Container.astro";
+import BlogPostCard from "@components/BlogPostCard.astro";
+import { getHomepagePosts } from "@lib/posts";
+
+export async function getStaticPaths({ paginate }: { paginate: Function }) {
+  const posts = await getHomepagePosts();
+  return paginate(posts, { pageSize: 24 });
+}
+
+const { page } = Astro.props as any;
+const isFirst = page.currentPage === 1;
+
+type PageItem = { type: "page"; n: number } | { type: "ellipsis"; key: string };
+const pageItems: PageItem[] = [];
+for (let n = 1; n <= page.lastPage; n++) {
+  const near = Math.abs(n - page.currentPage) <= 2 || n === 1 || n === page.lastPage;
+  if (near) {
+    pageItems.push({ type: "page", n });
+  } else if (pageItems[pageItems.length - 1]?.type !== "ellipsis") {
+    pageItems.push({ type: "ellipsis", key: `e${n}` });
+  }
+}
+---
+<BaseLayout
+  title={isFirst ? "Alle artikelen | TheorieExamenOefenen" : `Artikelen — pagina ${page.currentPage} | TheorieExamenOefenen`}
+  description="Tips, uitleg en oefenstof voor je CBR auto theorie-examen. Meer dan 200 artikelen over verkeersregels, examentips en rijbewijs."
+>
+  <div class="bg-stone-950 text-white">
+    <Container class="py-10">
+      <div class="flex items-end justify-between flex-wrap gap-4">
+        <div>
+          <h1 class="text-4xl font-bold tracking-tight">Alle artikelen</h1>
+          {!isFirst && <p class="text-stone-400 text-sm mt-1">Pagina {page.currentPage} van {page.lastPage}</p>}
+        </div>
+        <span class="bg-white/10 text-stone-300 text-xs font-semibold px-3 py-1 rounded-full border border-white/10">{page.total} artikelen</span>
+      </div>
+    </Container>
+  </div>
+
+  <Container class="py-(--spacing-section)">
+    <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      {page.data.map((p: any) => <BlogPostCard post={p} />)}
+    </div>
+
+    {page.lastPage > 1 && (
+      <nav class="mt-12 flex items-center justify-center gap-2" aria-label="Paginatie">
+        {page.url.prev && (
+          <a href={page.url.prev} class="flex items-center gap-1.5 px-4 py-2 text-sm font-semibold border border-slate-200 rounded-lg text-slate-700 hover:border-orange-300 hover:text-orange-700 transition-colors">
+            ← Vorige
+          </a>
+        )}
+
+        <div class="flex items-center gap-1">
+          {pageItems.map((item) =>
+            item.type === "ellipsis"
+              ? <span class="px-2 text-slate-400 text-sm select-none">…</span>
+              : item.n === page.currentPage
+                ? <span class="w-9 h-9 flex items-center justify-center text-sm font-semibold rounded-lg bg-orange-600 text-white" aria-current="page">{item.n}</span>
+                : <a href={item.n === 1 ? "/blog/" : `/blog/${item.n}/`} class="w-9 h-9 flex items-center justify-center text-sm font-semibold rounded-lg border border-slate-200 text-slate-600 hover:border-orange-300 hover:text-orange-700 transition-colors">{item.n}</a>
+          )}
+        </div>
+
+        {page.url.next && (
+          <a href={page.url.next} class="flex items-center gap-1.5 px-4 py-2 text-sm font-semibold border border-slate-200 rounded-lg text-slate-700 hover:border-orange-300 hover:text-orange-700 transition-colors">
+            Volgende →
+          </a>
+        )}
+      </nav>
+    )}
+  </Container>
+</BaseLayout>
