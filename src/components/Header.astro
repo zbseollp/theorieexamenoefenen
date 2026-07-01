@@ -4,14 +4,11 @@ import { SITE } from "@lib/site";
 const path = new URL(Astro.request.url).pathname;
 const isActive = (href: string) => href === "/" ? path === "/" : path.startsWith(href);
 ---
-<header data-header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-orange-100 shadow-sm">
+<header data-header class="sticky top-0 z-50 bg-stone-950/95 backdrop-blur-sm border-b border-stone-800">
   <Container class="flex h-14 items-center justify-between">
     <a href="/" class="flex items-center gap-2.5 group">
-      <div class="h-8 px-2.5 flex items-center justify-center rounded-lg bg-orange-600 group-hover:bg-orange-700 transition-colors shrink-0">
-        <span class="text-white font-black text-xs leading-none tracking-tight">TEO</span>
-      </div>
-      <span class="font-black text-sm leading-tight hidden sm:block text-gray-900">
-        Theorie<span class="text-orange-600">Examen</span>Oefenen
+      <span class="font-display font-bold text-base text-white leading-tight" style="font-family: var(--font-display)">
+        Theorie<span class="text-orange-400">Examen</span>Oefenen
       </span>
     </a>
 
@@ -22,20 +19,20 @@ const isActive = (href: string) => href === "/" ? path === "/" : path.startsWith
           class:list={[
             "px-3.5 py-2 text-xs font-semibold rounded-lg transition-colors",
             isActive(item.href)
-              ? "bg-orange-50 text-orange-700"
-              : "text-gray-500 hover:text-gray-900 hover:bg-gray-100",
+              ? "bg-stone-800 text-orange-400"
+              : "text-stone-400 hover:text-white hover:bg-stone-800",
           ]}
         >{item.label}</a>
       ))}
     </nav>
 
     <div class="flex items-center gap-3">
-      <a href="/blog/" class="hidden sm:inline-flex items-center gap-1 bg-orange-600 hover:bg-orange-700 px-4 py-2 text-xs font-bold text-white rounded-full transition-colors">
-        Begin met oefenen →
+      <a href="/blog/" class="hidden sm:inline-flex items-center gap-1 bg-orange-600 hover:bg-orange-500 px-4 py-2 text-xs font-bold text-white rounded-lg transition-colors">
+        Alle artikelen →
       </a>
       <button
         data-menu-toggle
-        class="inline-flex items-center justify-center p-2 text-gray-500 lg:hidden hover:text-gray-900 rounded-lg hover:bg-gray-100"
+        class="inline-flex items-center justify-center p-2 text-stone-400 lg:hidden hover:text-white rounded-lg hover:bg-stone-800"
         aria-label="Menu openen" aria-expanded="false"
       >
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
@@ -43,10 +40,10 @@ const isActive = (href: string) => href === "/" ? path === "/" : path.startsWith
     </div>
   </Container>
 
-  <div data-mobile-menu class="hidden border-t border-orange-100 bg-white lg:hidden">
+  <div data-mobile-menu class="hidden border-t border-stone-800 bg-stone-950 lg:hidden">
     <Container class="flex flex-col py-2 gap-0.5">
       {SITE.nav.map((item) => (
-        <a href={item.href} class="px-3 py-2.5 text-sm font-semibold text-gray-600 hover:text-orange-700 hover:bg-orange-50 rounded-lg transition-colors">{item.label}</a>
+        <a href={item.href} class="px-3 py-2.5 text-sm font-semibold text-stone-400 hover:text-white hover:bg-stone-800 rounded-lg transition-colors">{item.label}</a>
       ))}
     </Container>
   </div>
